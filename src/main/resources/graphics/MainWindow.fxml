@@ -55,7 +55,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button fx:id="btorigY" minWidth="98.0" mnemonicParsing="false" onAction="#origy" prefWidth="55.0" text="Y" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                  <Button fx:id="btorigY" minWidth="98.0" mnemonicParsing="false" onAction="#originaly" prefWidth="55.0" text="Y" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
                   <Button fx:id="btoringCb" minWidth="98.0" mnemonicParsing="false" onAction="#origcb" text="Cb" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
                   <Button fx:id="btoringCr" maxWidth="55.0" minWidth="98.0" mnemonicParsing="false" onAction="#origcr" text="Cr" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Original" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">

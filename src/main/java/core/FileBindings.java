@@ -11,4 +11,6 @@ public class FileBindings {
 
     public static Image favicon = new Image(FileBindings.class.getClassLoader().getResourceAsStream("favicon.png"));
 
+    public static final String defaultImage = "images/Lenna(testImage).png";
+
 }
