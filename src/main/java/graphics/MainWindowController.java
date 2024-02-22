@@ -12,6 +12,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Slider;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
+import jpeg.Process;
 
 import javax.imageio.ImageIO;
 import java.io.File;
@@ -20,6 +21,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MainWindowController implements Initializable {
+
+    Process Process = new Process();
 
     @FXML
     private Button btdecodeYR;
@@ -195,8 +198,7 @@ public class MainWindowController implements Initializable {
     }
 
     @FXML
-    void origred(ActionEvent event) {
-
+    void origred(ActionEvent event) throws IOException {
     }
 
     @FXML
@@ -205,7 +207,12 @@ public class MainWindowController implements Initializable {
     }
 
     @FXML
-    void rgb(ActionEvent event) {
+    void rgb(ActionEvent event) throws IOException {
+
+
+
+        File file = new File(FileBindings.defaultImage);
+        Dialogs.showImageInWindow(Process.getImageFromRGB(), "Red only", true);
 
     }
 
@@ -230,6 +237,17 @@ public class MainWindowController implements Initializable {
     void ycbcrtorgb(ActionEvent event) {
 
     }
+
+    @FXML
+    void origshades(ActionEvent event) {
+
+    }
+
+    @FXML
+    void modifiedshades(ActionEvent event) {
+
+    }
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

@@ -1,9 +1,12 @@
 package core;
 
 import javafx.scene.image.Image;
+import jpeg.Process;
 
 import java.io.File;
 import java.net.URL;
+
+import static enums.ColorType.RED;
 
 public class FileBindings {
 
