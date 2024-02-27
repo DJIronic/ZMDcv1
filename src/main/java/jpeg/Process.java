@@ -2,9 +2,12 @@ package jpeg;
 
 import Jama.Matrix;
 import enums.ColorType;
+import graphics.Dialogs;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+
+import static enums.ColorType.*;
 
 
 public class Process {
@@ -20,6 +23,23 @@ public class Process {
     private Matrix originalY, modifiedY;
     private Matrix originalCb, modifiedCb;
     private Matrix originalCr, modifiedCr;
+
+    public Process(String path) {
+
+        this.originalImage = Dialogs.loadImageFromPath(path);
+
+        imageWidth = originalImage.getWidth();
+        imageHeight = originalImage.getHeight();
+
+        originalRed = new int[imageHeight][imageWidth];
+        originalGreen = new int[imageHeight][imageWidth];
+        originalBlue = new int[imageHeight][imageWidth];
+
+        originalY = new Matrix(imageHeight, imageWidth);
+        originalCb = new Matrix(imageHeight, imageWidth);
+        originalCr = new Matrix(imageHeight, imageWidth);
+        setOriginalRGB();
+    }
 
 
     public void setOriginalRGB() {
@@ -45,16 +65,31 @@ public class Process {
 
         return bfImage;
     }
+    
+    public void convertToYCbCr() {
 
-    public BufferedImage showOneColorImageFromRGB(int[][] color, ColorType type, boolean greyScale) {
+        Matrix[] temp = ColorTransform.convertOriginalRGBtoYcBcR(originalRed, originalGreen, originalBlue);
+        originalY = temp[0];
+        originalCb = temp[1];
+        originalCr = temp[2];
+        
+    }
+
+    public void convertToRGB()
+    {
+        int[][][] temp = ColorTransform.convertModifiedYcBcRtoRGB(originalY, originalCb, originalCr);
+        modifiedRed = temp[0];
+        modifiedGreen = temp[1];
+        modifiedBlue = temp[2];
+    }
+
+
+    public BufferedImage showOneColorImageFromRGB(int[][] color, ColorType type) {
 
         BufferedImage bfImage = new BufferedImage(
                 imageWidth, imageWidth, BufferedImage.TYPE_INT_RGB);
         for (int h = 0; h < imageHeight; h++) {
             for (int w = 0; w < imageWidth; w++) {
-                if (greyScale = true) {
-                    bfImage.setRGB(w, h, (new Color(color[h][w], color[h][w], color[h][w])).getRGB());
-                }
                 switch (type) {
                     case RED:
                         bfImage.setRGB(w, h, (new Color(color[h][w], 0, 0)).getRGB());
@@ -74,15 +109,69 @@ public class Process {
 
     public BufferedImage showOneColorFromYCbCr(Matrix color) {
         BufferedImage bfImage = new BufferedImage(
-                imageWidth, imageWidth, BufferedImage.TYPE_INT_RGB);
+                imageWidth, imageHeight, BufferedImage.TYPE_INT_RGB);
 
         double [][] colorOrigin = color.getArray();
         for (int h = 0; h < imageHeight; h++) {
             for (int w = 0; w < imageWidth; w++) {
-                bfImage.setRGB(w,h, (new Color(colorOrigin[w][h] > 255 ? 255 : 0,colorOrigin[w][h] > 255 ? 255 : 0, colorOrigin[w][h] > 255 ? 255 : 0).getRGB()));
+                bfImage.setRGB(w,h,
+                        (new Color((int)color.get(h,w),
+                                (int)color.get(h,w),
+                                (int)color.get(h,w)).getRGB()));
             }
         }
         return bfImage;
+    }
+
+
+
+    public BufferedImage showOrigBlue()
+    {
+        return showOneColorImageFromRGB(originalBlue, BLUE);
+    }
+    public BufferedImage showOrigGreen()
+    {
+        return showOneColorImageFromRGB(originalGreen, GREEN);
+    }
+    public BufferedImage showOrigRed()
+    {
+        return showOneColorImageFromRGB(originalRed,  RED);
+    }
+    public BufferedImage showModifBlue()
+    {
+        return showOneColorImageFromRGB(modifiedBlue, BLUE);
+    }
+    public BufferedImage showModifGreen()
+    {
+        return showOneColorImageFromRGB(modifiedGreen, GREEN);
+    }
+    public BufferedImage showModifRed()
+    {
+        return showOneColorImageFromRGB(modifiedRed,  RED);
+    }
+    public BufferedImage showOrigY()
+    {
+        return  showOneColorFromYCbCr(originalY);
+    }
+    public BufferedImage showModifY()
+    {
+        return  showOneColorFromYCbCr(originalY);
+    }
+    public BufferedImage showOrigCb()
+    {
+        return  showOneColorFromYCbCr(originalCb);
+    }
+    public BufferedImage showModifCb()
+    {
+        return  showOneColorFromYCbCr(originalCb);
+    }
+    public BufferedImage showOrigCr()
+    {
+        return  showOneColorFromYCbCr(originalCr);
+    }
+    public BufferedImage showModifCr()
+    {
+        return  showOneColorFromYCbCr(originalCr);
     }
 
 }

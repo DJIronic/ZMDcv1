@@ -22,7 +22,7 @@ import java.util.ResourceBundle;
 
 public class MainWindowController implements Initializable {
 
-    Process Process = new Process();
+    Process process = new Process(FileBindings.defaultImage);
 
     @FXML
     private Button btdecodeYR;
@@ -145,60 +145,131 @@ public class MainWindowController implements Initializable {
     @FXML
     void modblue(ActionEvent event) {
 
+        try {
+            Dialogs.showImageInWindow(process.showModifBlue(), "MB", true);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     @FXML
     void modcb(ActionEvent event) {
+
+        try {
+            Dialogs.showImageInWindow(process.showModifCb(), "MCb", true);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
     @FXML
     void modcr(ActionEvent event) {
 
+        try {
+            Dialogs.showImageInWindow(process.showModifCr(), "MCr", true);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     @FXML
     void modgreen(ActionEvent event) {
+
+        try {
+            Dialogs.showImageInWindow(process.showModifGreen(), "MG", true);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
     @FXML
     void modreg(ActionEvent event) {
 
+        try {
+            Dialogs.showImageInWindow(process.showModifRed(), "MR", true);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     @FXML
     void mody(ActionEvent event) {
+
+        try {
+            Dialogs.showImageInWindow(process.showModifY(), "MY", true);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
     @FXML
     void origblue(ActionEvent event) {
 
+        try {
+            Dialogs.showImageInWindow(process.showOrigBlue(), "OB", true);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     @FXML
     void origcb(ActionEvent event) {
+
+        try {
+            Dialogs.showImageInWindow(process.showOrigCb(), "OCb", true);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
     @FXML
     void origcr(ActionEvent event) {
 
+        try {
+            Dialogs.showImageInWindow(process.showOrigCr(), "OCr", true);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     @FXML
     void origgreen(ActionEvent event) {
+        try {
+            Dialogs.showImageInWindow(process.showOrigGreen(), "OG", true);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
     @FXML
     void originaly(ActionEvent event) {
 
+        try {
+            Dialogs.showImageInWindow(process.showOrigY(), "OY", true);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     @FXML
     void origred(ActionEvent event) throws IOException {
+        try {
+            Dialogs.showImageInWindow(process.showOrigRed(), "OR", true);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     @FXML
@@ -207,17 +278,24 @@ public class MainWindowController implements Initializable {
     }
 
     @FXML
-    void rgb(ActionEvent event) throws IOException {
+    void rgb(ActionEvent event) {
 
-
-
-        File file = new File(FileBindings.defaultImage);
-        Dialogs.showImageInWindow(Process.getImageFromRGB(), "Red only", true);
+        try {
+            Dialogs.showImageInWindow(process.getImageFromRGB(), "Modified RGB", true);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
+
     @FXML
     void rgbtoycbcr(ActionEvent event) {
+        try {
+            process.convertToYCbCr();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
@@ -235,6 +313,12 @@ public class MainWindowController implements Initializable {
 
     @FXML
     void ycbcrtorgb(ActionEvent event) {
+
+        try {
+            process.convertToRGB();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
