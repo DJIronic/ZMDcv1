@@ -1,7 +1,9 @@
 package jpeg;
 
 import Jama.Matrix;
+import core.Helper;
 import enums.ColorType;
+import enums.SamplingType;
 import graphics.Dialogs;
 
 import java.awt.*;
@@ -72,6 +74,10 @@ public class Process {
         originalY = temp[0];
         originalCb = temp[1];
         originalCr = temp[2];
+
+        modifiedY = originalY;
+        modifiedCb = originalCb;
+        modifiedCr = originalCr;
         
     }
 
@@ -108,12 +114,16 @@ public class Process {
     }
 
     public BufferedImage showOneColorFromYCbCr(Matrix color) {
+
+        int width = Helper.GetWidth(color);
+        int height = Helper.GetHeight(color);
+
         BufferedImage bfImage = new BufferedImage(
-                imageWidth, imageHeight, BufferedImage.TYPE_INT_RGB);
+                width, height, BufferedImage.TYPE_INT_RGB);
 
         double [][] colorOrigin = color.getArray();
-        for (int h = 0; h < imageHeight; h++) {
-            for (int w = 0; w < imageWidth; w++) {
+        for (int h = 0; h < height; h++) {
+            for (int w = 0; w < width; w++) {
                 bfImage.setRGB(w,h,
                         (new Color((int)color.get(h,w),
                                 (int)color.get(h,w),
@@ -121,6 +131,16 @@ public class Process {
             }
         }
         return bfImage;
+    }
+
+    public void sampleDown (SamplingType samplingType) {
+        modifiedCb = Sampling.sampleDown(modifiedCb, samplingType);
+        modifiedCr = Sampling.sampleDown(modifiedCr, samplingType);
+    }
+
+    public void sampleUp (SamplingType samplingType) {
+        modifiedCb = Sampling.sampleUp(modifiedCb, samplingType);
+        modifiedCr = Sampling.sampleUp(modifiedCr, samplingType);
     }
 
 
@@ -155,7 +175,7 @@ public class Process {
     }
     public BufferedImage showModifY()
     {
-        return  showOneColorFromYCbCr(originalY);
+        return  showOneColorFromYCbCr(modifiedY);
     }
     public BufferedImage showOrigCb()
     {
@@ -163,7 +183,7 @@ public class Process {
     }
     public BufferedImage showModifCb()
     {
-        return  showOneColorFromYCbCr(originalCb);
+        return  showOneColorFromYCbCr(modifiedCb);
     }
     public BufferedImage showOrigCr()
     {
@@ -171,7 +191,7 @@ public class Process {
     }
     public BufferedImage showModifCr()
     {
-        return  showOneColorFromYCbCr(originalCr);
+        return  showOneColorFromYCbCr(modifiedCr);
     }
 
 }

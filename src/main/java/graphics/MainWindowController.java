@@ -1,5 +1,6 @@
 package graphics;
 
+import com.sun.javafx.binding.DoubleConstant;
 import core.FileBindings;
 import enums.SamplingType;
 import enums.TransformType;
@@ -129,6 +130,11 @@ public class MainWindowController implements Initializable {
 
     @FXML
     void downsample(ActionEvent event) {
+        try {
+            process.sampleDown(dropencodesampling.getValue());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
@@ -274,7 +280,11 @@ public class MainWindowController implements Initializable {
 
     @FXML
     void oversample(ActionEvent event) {
-
+        try {
+            process.sampleUp(dropencodesampling.getValue());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML
