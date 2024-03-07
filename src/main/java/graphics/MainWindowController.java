@@ -1,7 +1,7 @@
 package graphics;
 
-import com.sun.javafx.binding.DoubleConstant;
 import core.FileBindings;
+import enums.QualityType;
 import enums.SamplingType;
 import enums.TransformType;
 import javafx.event.ActionEvent;
@@ -14,6 +14,7 @@ import javafx.scene.control.Slider;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
 import jpeg.Process;
+import jpeg.Quality;
 
 import javax.imageio.ImageIO;
 import java.io.File;
@@ -23,6 +24,15 @@ import java.util.ResourceBundle;
 
 public class MainWindowController implements Initializable {
 
+    public Button btoqcountssim;
+    public ComboBox y;
+    public TextField ssim;
+    public TextField mssim;
+    public ComboBox dropqualityrgb;
+    public TextField mae;
+    public TextField mse;
+    public TextField psnr;
+    public TextField sae;
     Process process = new Process(FileBindings.defaultImage);
 
     @FXML
@@ -120,7 +130,15 @@ public class MainWindowController implements Initializable {
 
     @FXML
     void count(ActionEvent event) {
+        String psnrtx = String.format("P%.2f dB", process.calcPSNR());
+        String saetx = String.format("%.2f dB", process.calcSAE());
+        String msetx = String.format("%.2f dB", process.calcMSE());
+        String maetx = String.format("%.2f dB", process.calcMAE());
 
+        psnr.setText(psnrtx);
+        mae.setText(maetx);
+        mse.setText(msetx);
+        sae.setText(saetx);
     }
 
     @FXML
@@ -347,8 +365,13 @@ public class MainWindowController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         dropencodesampling.getItems().addAll(SamplingType.values());
         dropencodetransform.getItems().addAll(TransformType.values());
+        dropqualityrgb.getItems().addAll(enums.QualityType.values());
 
         dropencodesampling.getSelectionModel().select(SamplingType.S_4_4_4);
         dropencodetransform.getSelectionModel().select(TransformType.DCT);
+        dropqualityrgb.getSelectionModel().select(QualityType.RGB);
+    }
+
+    public void countssim(ActionEvent actionEvent) {
     }
 }

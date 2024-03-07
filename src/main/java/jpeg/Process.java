@@ -26,6 +26,8 @@ public class Process {
     private Matrix originalCb, modifiedCb;
     private Matrix originalCr, modifiedCr;
 
+    private Quality quality;
+
     public Process(String path) {
 
         this.originalImage = Dialogs.loadImageFromPath(path);
@@ -141,6 +143,45 @@ public class Process {
     public void sampleUp (SamplingType samplingType) {
         modifiedCb = Sampling.sampleUp(modifiedCb, samplingType);
         modifiedCr = Sampling.sampleUp(modifiedCr, samplingType);
+    }
+
+    public double calcMSE() {
+        quality = new Quality();
+        double a = quality.countMSE(originalRed, modifiedRed);
+        double b = quality.countMSE(originalGreen, modifiedGreen);
+        double c = quality.countMSE(originalBlue, modifiedBlue);
+        return (Math.round(100 * (a + b + c) / 3.0) / 100.0);
+    }
+
+    public double calcMAE() {
+
+        quality = new Quality();
+        double a = quality.countMAE(originalRed, modifiedRed);
+        double b = quality.countMAE(originalGreen, modifiedGreen);
+        double c = quality.countMAE(originalBlue, modifiedBlue);
+        return (Math.round(100 * (a + b + c) / 3.0) / 100.0);
+    }
+
+    public double calcSAE() {
+        quality = new Quality();
+        double a = quality.countSAE(originalRed, modifiedRed);
+        double b = quality.countSAE(originalGreen, modifiedGreen);
+        double c = quality.countSAE(originalBlue, modifiedBlue);
+        return (Math.round(100 * (a + b + c) / 3.0) / 100.0);
+    }
+
+    public double calcPSNR() {
+        double mse = calcMSE();
+        return quality.countPSNR(mse);
+    }
+
+    public double PSNRforRGBcount() {
+        Quality quality = new Quality();
+        double mseRed = quality.countMSE(originalRed, modifiedRed);
+        double mseGreen = quality.countMSE(originalGreen, modifiedGreen);
+        double mseBlue = quality.countMSE(originalBlue, modifiedBlue);
+        double psnrRGB = quality.countPSNRforRGB(mseRed, mseGreen, mseBlue);
+        return (psnrRGB);
     }
 
 
