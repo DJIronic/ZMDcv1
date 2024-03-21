@@ -8,12 +8,12 @@ public enum SamplingType {
 
     String name;
 
-    SamplingType(String name) {
-        this.name = name;
+    SamplingType(String s) {
+        name = s;
     }
 
     @Override
     public String toString() {
-        return "Sampling type: " + name;
+        return "Sampling: " + name;
     }
 }

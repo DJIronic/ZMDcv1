@@ -3,8 +3,6 @@ package jpeg;
 import Jama.Matrix;
 
 public class Quality {
-
-
     public static double countMSE(double[][] original, double[][] modified) {
         double resultmse = 0;
         int width = original.length;
@@ -18,16 +16,6 @@ public class Quality {
         resultmse /= (width * height);
         return resultmse;
     }
-
-    public static double countMSE(int[][] original, int[][] modified) {
-        Matrix originalMatrix = new Matrix(original.length, modified.length);
-        Matrix modifiedMatrix = new Matrix(original.length, modified.length);
-        double[][] originalArray = originalMatrix.getArray();
-        double[][] modifiedArray = modifiedMatrix.getArray();
-        return countMSE(originalArray, modifiedArray);
-    }
-
-
     public static double countMAE(double[][] original, double[][] modified) {
 
         double resultmae = 0;
@@ -41,15 +29,6 @@ public class Quality {
         resultmae /= (w * h);
         return resultmae;
     }
-
-    public static double countMAE(int[][] original, int[][] modified) {
-        Matrix originalMatrix = new Matrix(original.length, modified.length);
-        Matrix modifiedMatrix = new Matrix(original.length, modified.length);
-        double[][] originalArray = originalMatrix.getArray();
-        double[][] modifiedArray = modifiedMatrix.getArray();
-        return countMAE(originalArray, modifiedArray);
-    }
-
     public static double countSAE(double[][] original, double[][] modified) {
         double resultsae = 0;
         int w = original.length;
@@ -59,7 +38,6 @@ public class Quality {
                 resultsae += Math.abs(original[i][j] - modified[i][j]);
             }
         }
-
         return resultsae;
     }
 
@@ -68,13 +46,6 @@ public class Quality {
         return psnr;
     }
 
-    public static double countSAE(int[][] original, int[][] modified) {
-        Matrix originalMatrix = new Matrix(original.length, modified.length);
-        Matrix modifiedMatrix = new Matrix(original.length, modified.length);
-        double[][] originalArray = originalMatrix.getArray();
-        double[][] modifiedArray = modifiedMatrix.getArray();
-        return countSAE(originalArray, modifiedArray);
-    }
 
     public static double countPSNRforRGB(double mseRed, double mseGreen, double mseBlue) {
         double mse = (mseRed + mseGreen + mseBlue) / 3;
@@ -83,10 +54,11 @@ public class Quality {
     }
 
     public static double countSSIM(Matrix original, Matrix modified) {
-        throw new RuntimeException("Definitely OK. mrk mrk.");
+        throw new RuntimeException("TBD...");
     }
 
     public static double countMSSIM(Matrix original, Matrix modified) {
-        throw new RuntimeException("Definitely OK. mrk mrk.");
+        throw new RuntimeException("TBD...");
     }
+
 }

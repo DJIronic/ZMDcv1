@@ -7,30 +7,38 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * Hlavní okno aplikace. Spustí hlavní okno. Inicializace JavaFX
+ *
+ * @author David Kohout
+ */
 public class JFXMain extends Application {
-    private static Stage primarystage;
-
+    private static Stage primaryStage;
+    public static Scene mainScene;
 
     @Override
     public void start(Stage stage) throws Exception {
-        primarystage = stage;
-        FXMLLoader fxmlLoader = new FXMLLoader(FileBindings.GUIMain);
+        primaryStage = stage;
 
-        Parent root = fxmlLoader.load();
-        Scene scene = new Scene(root);
-        primarystage.setScene(scene);
+        FXMLLoader fl = new FXMLLoader(FileBindings.GUIMain); //Načtení okna z fxml souboru
+        Parent root = fl.load();
 
-        primarystage.setTitle("xcecha07 JPEG");
-        primarystage.getIcons().add(FileBindings.favicon);
+        mainScene = new Scene(root); //Vytvoření scény z fxml souboru
+        primaryStage.setScene(mainScene); //Vložení scény do okna
 
-        primarystage.show();
+        primaryStage.setTitle("JPEG: xcecha07");
+        primaryStage.getIcons().add(FileBindings.favicon); //Přidání ikony aplikace
+        primaryStage.show(); //Zobrazí rozhraní
 
-        primarystage.setOnCloseRequest((e) -> {
+        //Není nutné, umožňuje provést kód po stisku X (př. potvrzení ukončení)
+        primaryStage.setOnCloseRequest((e) -> {
             Platform.exit();
             System.exit(0);
         });
     }
 
+    //Nutné mít launch uvnitř main metody.
+    //Bohužel nejde spustit přímo z této třídy.
     public static void main(String[] args) {
         launch(args);
     }

@@ -1,13 +1,13 @@
 package enums;
 
-public enum QualityType {
-    R,
-    G,
-    B,
 
+public enum QualityType {
+    Red,
+    Green,
+    Blue,
     Y,
     Cb,
     Cr,
     RGB,
-    YCbCr,
+    YCbCr
 }

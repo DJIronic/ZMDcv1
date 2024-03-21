@@ -4,6 +4,13 @@ import Jama.Matrix;
 
 public class ColorTransform {
 
+    /**
+     * Metoda pro přepočet RGB do grayscale.
+     * @param red Dvourozměrné pole s hosnotami červené.
+     * @param green Dvourozměrné pole s hodnotami zelené.
+     * @param blue Dvourozměrné pole s hodnotami modré.
+     * @return Pole typu Matrix, ve kterém jsou předány Matrixy pro každou barvu grayscale
+     */
     public static Matrix[] convertOriginalRGBtoYcBcR(int[][] red, int[][] green, int[][] blue){
         Matrix convertedY = new Matrix(red.length, red[0].length);
         Matrix convertedCb = new Matrix(red.length, red[0].length);
@@ -28,16 +35,19 @@ public class ColorTransform {
         for (int i = 0; i < Y.getColumnDimension(); i++) {
             for (int j = 0; j < Y.getRowDimension(); j++) {
                 int red = Math.round((float)(1.164*(Y.get(i,j)-16) + 1.596*(Cr.get(i,j)-128)));
-                red = red < 255 ? red : 255;
-                red = red > 0 ? red : 0;
+                red = red > 255 ? 255 : red;
+                red = red < 0 ? 0 : red;
+
 
                 int green = Math.round((float)((1.164*(Y.get(i,j) - 16) - 0.813*(Cr.get(i,j)-128)) - 0.391*(Cb.get(i,j) -128)));
-                green = green < 255 ? green : 255;
-                green = green > 0 ? green : 0;
+                green = green > 255 ? 255 : green;
+                green = green < 0 ? 0 : green;
+
 
                 int blue = Math.round((float)(1.164*(Y.get(i,j) -16) + 2.018*(Cb.get(i,j)-128)));
-                blue = blue < 255 ? blue : 255;
-                blue = blue > 0 ? blue : 0;
+
+                blue = blue > 255 ? 255 : blue;
+                blue = blue < 0 ? 0 : blue;
 
                 convertedRed[i][j] = red;
                 convertedGreen[i][j] = green;

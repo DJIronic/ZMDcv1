@@ -1,18 +1,17 @@
 package enums;
 
 public enum TransformType {
-
     DCT("DCT"),
     WHT("WHT");
 
     String name;
 
-    TransformType(String name) {
-        this.name = name;
+    TransformType(String dct) {
+        name = dct;
     }
 
     @Override
     public String toString() {
-        return "Transform: " + name;
+        return "Function: " + name;
     }
 }

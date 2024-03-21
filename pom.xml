@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.example</groupId>
-    <artifactId>ZMDcv1</artifactId>
+    <groupId>cz.vutbr.zmd</groupId>
+    <artifactId>ZMD_223327</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
@@ -19,14 +19,14 @@
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
-            <version>18</version>
+            <version>17.0.10</version>
         </dependency>
 
         <!-- JavaFX, modul pro nacteni FXML souboru -->
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
-            <version>18</version>
+            <version>17.0.10</version>
         </dependency>
 
         <!-- Jama Matrix -->
@@ -35,6 +35,14 @@
             <artifactId>jama</artifactId>
             <version>1.0.3</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>RELEASE</version>
+            <scope>test</scope>
+        </dependency>
+
 
         <!-- Knihovna pro testovaci kod -->
         <dependency>
@@ -46,5 +54,3 @@
     </dependencies>
 
 </project>
-
-

@@ -1,6 +1,6 @@
 import Jama.Matrix;
 import enums.SamplingType;
-import jpeg.Sampling;
+import jpeg.ColorSampling;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
@@ -25,10 +25,10 @@ public class SamplingTest {
 
     @Test
     void sampleTest() {
-        Matrix testS411Down = Sampling.sampleDown(new Matrix(testArray), SamplingType.S_4_1_1);
-        Matrix testS420Down = Sampling.sampleDown(new Matrix(testArray), SamplingType.S_4_2_0);
-        Matrix testS422Down = Sampling.sampleDown(new Matrix(testArray), SamplingType.S_4_2_2);
-        Matrix testS444Down = Sampling.sampleDown(new Matrix(testArray), SamplingType.S_4_4_4);
+        Matrix testS411Down = ColorSampling.sampleDown(new Matrix(testArray), SamplingType.S_4_1_1);
+        Matrix testS420Down = ColorSampling.sampleDown(new Matrix(testArray), SamplingType.S_4_2_0);
+        Matrix testS422Down = ColorSampling.sampleDown(new Matrix(testArray), SamplingType.S_4_2_2);
+        Matrix testS444Down = ColorSampling.sampleDown(new Matrix(testArray), SamplingType.S_4_4_4);
 
         assertEquals(s411Down.length, testS411Down.getRowDimension(), "Error: Sampling 4:1:1 has wrong row dimension");
         assertEquals(s411Down[0].length, testS411Down.getColumnDimension(), "Error: Sampling 4:1:1 has wrong column dimension");
@@ -51,10 +51,10 @@ public class SamplingTest {
         System.out.println("Sampling down: OK");
 
 
-        Matrix testS411Up = Sampling.sampleUp(testS411Down, SamplingType.S_4_1_1);
-        Matrix testS420Up = Sampling.sampleUp(testS420Down, SamplingType.S_4_2_0);
-        Matrix testS422Up = Sampling.sampleUp(testS422Down, SamplingType.S_4_2_2);
-        Matrix testS444Up = Sampling.sampleUp(testS444Down, SamplingType.S_4_4_4);
+        Matrix testS411Up = ColorSampling.sampleUp(testS411Down, SamplingType.S_4_1_1);
+        Matrix testS420Up = ColorSampling.sampleUp(testS420Down, SamplingType.S_4_2_0);
+        Matrix testS422Up = ColorSampling.sampleUp(testS422Down, SamplingType.S_4_2_2);
+        Matrix testS444Up = ColorSampling.sampleUp(testS444Down, SamplingType.S_4_4_4);
 
         assertArrayEquals(s411Up, testS411Up.getArray(), "Error: Sampling 4:1:1 returns different Matrix than expected. In Sampling class, check method sampleUp() for correct return type for sampling S411.");
         assertArrayEquals(s420Up, testS420Up.getArray(), "Error: Sampling 4:2:0 returns different Matrix than expected. In Sampling class, check method sampleUp() for correct return type for sampling S420.");
